@@ -46,6 +46,7 @@ public class ClassController {
         QueryWrapper<Class> queryWrapper = new QueryWrapper<>();
         Map<String, String> map = new HashMap<>();
         map.put("classname",classDTO.getClassname());
+        map.remove("classname","null");
         if (classDTO.getClassname() != null && !classDTO.getClassname().isEmpty()) {
             queryWrapper.allEq(map);
         }

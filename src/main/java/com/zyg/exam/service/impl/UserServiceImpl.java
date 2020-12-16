@@ -11,10 +11,7 @@ import com.zyg.exam.model.User;
 import com.zyg.exam.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,14 +70,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             }
 
             importUser=new ImportUser();
-
-            if( row.getCell(0).getCellType() !=1){
-                throw new MyException(500,"导入失败(第"+(r+1)+"行,题目类型请设为文本格式)");
-            }
+//            if( row.getCell(0).getCellType() !=0){
+//                throw new MyException(500,"导入失败(第"+(r+1)+"行,题目类型请设为文本格式)");
+//            }
+            row.getCell(0).setCellType(CellType.STRING);
             String username= row.getCell(0).getStringCellValue();
 
             if(username == null || username.isEmpty()){
-                throw new MyException(500,"导入失败(第"+(r+1)+"行,工号未填写)");
+                throw new MyException(500,"导入失败(第"+(r+1)+"行,用户名未填写)");
             }
 
             row.getCell(1).setCellType(Cell.CELL_TYPE_STRING);
@@ -99,36 +96,31 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,电话未填写)");
             }
             row.getCell(4).setCellType(Cell.CELL_TYPE_STRING);
-            String role=row.getCell(4).getStringCellValue();
-            if(role==null || role.isEmpty()){
+            String role0=row.getCell(4).getStringCellValue();
+            String role="";
+            if(role0==null || role0.isEmpty()){
                 throw new MyException(500,"导入失败(第"+(r+1)+"行,角色未填写)");
             }
-            row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
-            String classname=row.getCell(5).getStringCellValue();
-            if(classname==null || role.isEmpty()){
-                throw new MyException(500,"导入失败(第"+(r+1)+"行,角色未填写)");
+            if(role0.equals("教师")){
+                role="2";
+            }else{
+                role="3";
             }
-            System.out.println("classname"+classname);
-
+            if(role=="3"){
+                row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
+                String classname=row.getCell(5).getStringCellValue();
+                if(classname==null || classname.isEmpty()){
+                    throw new MyException(500,"导入失败(第"+(r+1)+"行,班级未填写)");
+                }
+                importUser.setClassname(classname);
+            }
             importUser.setUsername(username);
             importUser.setPassword(password);
             importUser.setName(name);
             importUser.setRole(role);
-            importUser.setClassname(classname);
             importUser.setTel(tel);
             System.out.println(importUser);
             importUsers.add(importUser);
-
-
-
-
-
-
-
-
-
-
-
 
         }
         int num=0;
