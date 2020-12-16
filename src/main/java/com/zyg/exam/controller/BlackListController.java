@@ -26,6 +26,7 @@ import java.util.List;
  * @author ZZQ
  * @since 2020-04-15
  */
+/*这是一条测试注释，用于测试git 同步*/
 @RestController
 public class BlackListController {
     @Autowired
