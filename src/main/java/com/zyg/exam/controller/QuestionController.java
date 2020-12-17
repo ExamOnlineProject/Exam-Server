@@ -29,7 +29,8 @@ public class QuestionController {
 
     @RequestMapping("/selectQuestion")
     public ResVO selectByDifficulty(QuestionDTO questionDTO){
-        System.out.println(questionDTO);
+        //System.out.println(questionDTO);
+        System.out.println(questionService.selectQuestion(questionDTO).getList());
         return questionService.selectQuestion(questionDTO);
     }
 

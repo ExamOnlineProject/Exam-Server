@@ -3,6 +3,7 @@ package com.zyg.exam.controller;
 import com.zyg.exam.dao.AnswerDao;
 import com.zyg.exam.dao.RecordDao;
 import com.zyg.exam.model.Record;
+import com.zyg.exam.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,16 @@ public class FileController {
     @Autowired
     private AnswerDao answerDao;
 
-    String oPath = System.getProperty("user.dir");
-    String serverPath = "http://localhost:8088/";
-    String localPath = "D:\\uploadImg\\";
+    @Autowired
+    private FileService fileService;
 
+
+
+    String oPath = System.getProperty("user.dir");
+//    String serverPath = "http://localhost:8088/";
+    String localPath = "D:\\uploadImg\\";
+    //
+    //String localPath ="D://java工程//在线考试修改//javaweb//Exam-Server//src//main//resources//static//";
     @RequestMapping("/uploadVideo")
     public int VideoFile(MultipartFile file,Integer recordid){
         try {
@@ -72,26 +79,31 @@ public class FileController {
         String imgServerURL = null;
         List<String> urls = new ArrayList<>();
         for (MultipartFile imgFile: files) {
-            String type = imgFile.getOriginalFilename().substring(imgFile.getOriginalFilename().lastIndexOf("."));
-            String imgName = UUID.randomUUID().toString() + type;
-            String filePath = localPath + imgName;
+
+//            String type = imgFile.getOriginalFilename().substring(imgFile.getOriginalFilename().lastIndexOf("."));
+//            String imgName = UUID.randomUUID().toString() + type;
+//            String filePath = localPath + imgName;
+
             try {
-                InputStream is = imgFile.getInputStream();
-                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = is.read(buffer)) > 0) {
-                    output.write(buffer, 0, length);
-                }
-                fileOutputStream.write(output.toByteArray());
-                is.close();
-                fileOutputStream.close();
+                imgServerURL = fileService.uploadImg(imgFile);
+
+//                InputStream is = imgFile.getInputStream();
+//                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+//                ByteArrayOutputStream output = new ByteArrayOutputStream();
+//                byte[] buffer = new byte[1024];
+//                int length;
+//                while ((length = is.read(buffer)) > 0) {
+//                    output.write(buffer, 0, length);
+//                }
+//                fileOutputStream.write(output.toByteArray());
+//                is.close();
+//                fileOutputStream.close();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("[图片上传失败--]");
             }
-            imgServerURL = serverPath + imgName;
+//            imgServerURL =
             urls.add(imgServerURL);
             System.out.println("[图片上传成功--：]" + imgServerURL);
         }
