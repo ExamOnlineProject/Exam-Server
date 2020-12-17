@@ -43,7 +43,7 @@ public class PaperController {
 
     @RequestMapping("/updatePaper")
     public JsonBean updatePaper(Paper paper){
-        log.info("{}",paper);
+        System.out.println(paper.toString()+"******************");
         return paperService.updatePaper(paper);
     }
 

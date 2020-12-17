@@ -24,7 +24,7 @@ public class Paper implements Serializable {
      * 试卷id
      */
     @TableId(type = IdType.AUTO)
-    private Integer paperid;
+    private Integer paperId;
 
     /**
      * 开始时间
