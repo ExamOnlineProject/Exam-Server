@@ -20,6 +20,7 @@ public class CourseController {
 
     @RequestMapping("/selectCourse")
     public ResVO listCourse(CourseDTO courseDTO){
+        System.out.println(courseDTO.getCoursename().isEmpty());
         return courseService.listCourse(courseDTO);
     }
 
