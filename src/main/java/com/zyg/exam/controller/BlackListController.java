@@ -45,6 +45,12 @@ public class BlackListController {
     }
     @RequestMapping("insertBlackList")
     public JsonBean insertBlackList(BlackList blackList){
+       List<BlackList>blackLists=blackListService.list();
+        for(BlackList  blackList1:blackLists){
+            if(blackList1.getName().equals(blackList.getName())&&blackList1.getProcess().equals(blackList.getProcess())&&blackList1.getType().equals(blackList.getType())){
+                return new JsonBean(500,"数据以存在",null);
+            }
+        }
         return new JsonBean(200,"success",blackListService.save(blackList));
     }
     @RequestMapping("updateBlackList")
