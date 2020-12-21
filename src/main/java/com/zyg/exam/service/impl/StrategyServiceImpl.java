@@ -71,7 +71,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     List<List<Integer>> questions = new ArrayList<>();
                     System.out.println("全随机模式");
                     Strategy strategy = new Strategy();
-                    //过去题目类型
+                    //获取题目类型
                     String type = strategyDTO.getType();
                     //获取题目数量
                     int count = strategyDTO.getCount();
@@ -88,7 +88,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     strategy.setMode(mode);
                     System.out.println("strategy"+strategy);
                     //插入策略表
-                    List<Integer> question1 = questionDao.selectByType(type);
+                    List<Integer> question1 = questionDao.selectByType(type,paper.getCourseid());
                     //获取随机后的题目id列表
                     questionids = this.randomQuestion(question1, count);
                     System.out.println("随机后的试题"+questionids);

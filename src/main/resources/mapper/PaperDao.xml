@@ -86,7 +86,7 @@
     select SQL_CALC_FOUND_ROWS * from(select paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,course.coursename from
     paper left join course on paper.courseid=course.courseid
     <if test="courseid!=null and courseid!=''">
-      where course.courseid=#{courseid,jdbcType=INTEGER}
+      where paper.courseid=#{courseid,jdbcType=INTEGER}
     </if>
     )a limit #{key_offset},#{pageSize};select found_rows() count;
 

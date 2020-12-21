@@ -30,7 +30,7 @@ public interface QuestionDao  extends BaseMapper<Question> {
 
     int insertQuestionDTO(QuestionVO questionVO);
 
-    List<Integer> selectByType(String type);
+    List<Integer> selectByType(String type, Integer courseid);
 
     List<Integer> selectByChapter(String difficulty,Integer chapterid,String type);
 

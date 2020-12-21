@@ -292,11 +292,11 @@
       </if>
     </trim>
   </insert>
-  <select id="selectByType" parameterType="string" resultType="integer">
+  <select id="selectByType"  resultType="integer">
     select
     subjectid
-    from question
-    where question.type=#{type,jdbcType=VARCHAR}
+    from question,chapter,course
+    where question.type=#{type,jdbcType=VARCHAR} and question.chapterid=chapter.chapterid and chapter.courseid=course.courseid and course.courseid=#{courseid,jdbcType=INTEGER}
   </select>
   <select id="selectByChapter" resultType="integer">
     select
