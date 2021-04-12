@@ -5,9 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.131.97.254:3306/exam?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true
-    username: exam
-    password: 123456
+    url: jdbc:mysql://49.234.61.127:3306/exam?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true
+    username: root
+    password: root
     hikari:
       minimum-idle: 3
       maximum-pool-size: 10

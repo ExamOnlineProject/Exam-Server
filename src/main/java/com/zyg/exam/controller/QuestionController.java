@@ -19,6 +19,11 @@ public class QuestionController {
 
     @RequestMapping("/insertQuestion")
     public JsonBean insertQuestion(Question question){
+        question.setContent(cutString(question.getContent()));
+        question.setOption1(cutString(question.getOption1()));
+        question.setOption2(cutString(question.getOption2()));
+        question.setOption3(cutString(question.getOption3()));
+        question.setOption4(cutString(question.getOption4()));
         return questionService.insertQuestion(question);
     }
 
@@ -50,5 +55,15 @@ public class QuestionController {
             e.printStackTrace();
         }
         return  jsonBean;
+    }
+    public String cutString(String str){
+        int e=0;
+        e=str.indexOf("src");
+        System.out.println(e);
+        if(e==-1)
+            return str;
+        String string=str.substring(str.indexOf('"')+1);
+        string=string.substring(0,string.indexOf('"'));
+        return  string;
     }
 }
