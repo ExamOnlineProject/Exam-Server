@@ -1,15 +1,25 @@
 package com.zyg.exam.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.mysql.cj.util.Base64Decoder;
+import com.qcloud.cos.model.ObjectMetadata;
 import com.zyg.exam.common.DTO.QuestionDTO;
 import com.zyg.exam.common.JsonBean;
 import com.zyg.exam.common.ResVO;
 import com.zyg.exam.model.Question;
 import com.zyg.exam.service.QuestionService;
+import com.zyg.exam.utils.COSUtil;
+import com.zyg.exam.utils.FileNameUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -65,5 +75,26 @@ public class QuestionController {
         String string=str.substring(str.indexOf('"')+1);
         string=string.substring(0,string.indexOf('"'));
         return  string;
+    }
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public JsonBean uploadImg(MultipartFile imageUrl) {
+
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(imageUrl.getSize());
+        metadata.setContentType(imageUrl.getContentType());
+        String name = FileNameUtil.getName(imageUrl);
+        String realPath = null;
+        try {
+            realPath = COSUtil.upload("img/" + name, imageUrl.getInputStream(), metadata);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(imageUrl);
+        JSONObject result = new JSONObject();
+        result.put("imgUrl", realPath);
+
+        return new JsonBean(200, "上传成功", result);
     }
 }
