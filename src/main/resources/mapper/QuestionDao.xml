@@ -306,7 +306,7 @@
   </select>
   <select id="selectByRecord" parameterType="java.lang.Integer" resultMap="PaperQuestionVO">
 
-    select * from (select type,content,option1,option2,option3,option4,question.answer,a.questionid,a.credit,a.stuanswer,a.recordid,a.answerid from question join (select questionid,credit,answer.answer stuanswer,recordid,answer.answerid from answer where recordid=#{recordid,jdbcType=INTEGER})a on a.questionid=question.subjectid)c
+    select * from (select type,content,option1,option2,option3,option4,question.answer,a.questionid,a.credit,a.stuanswer,a.recordid,a.answerid from question join (select questionid,credit,answer.answer stuanswer,recordid,answer.answerid,answer.answer from answer where recordid=#{recordid,jdbcType=INTEGER})a on a.questionid=question.subjectid)c
             ,
                   (select  distinct value,b.recordid recordid1 from strategy join (select paperid,recordid from record where recordid=#{recordid,jdbcType=INTEGER})b on strategy.paperid=b.paperid)b where c.recordid=b.recordid1 GROUP BY c.questionid
   </select>
