@@ -78,7 +78,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     //获取题目分值
                     int value = strategyDTO.getScore();
                     //获取paperid
-                    int paperid = paper.getPaperId();
+                    int paperid = paper.getPaperid();
                     //获取策略类型
                     int mode = strategyDTO.getMode();
                     strategy.setValue(value);
@@ -94,7 +94,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     System.out.println("随机后的试题"+questionids);
                     questions.add(questionids);
                     strategyDao.insertSelective(strategy);
-                    this.insertPaperQuestion(questions, paper.getPaperId());
+                    this.insertPaperQuestion(questions, paper.getPaperid());
                 } else if (strategyDTO.getMode() == 2) {//按章节，难度组卷
                     List<List<Integer>> questions = new ArrayList<>();
                     System.out.println("插入前的questions"+questions);
@@ -109,7 +109,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     Strategy strategy = new Strategy();
                     strategy.setMode(strategyDTO.getMode());
                     strategy.setCount(count);
-                    strategy.setPaperid(paper.getPaperId());
+                    strategy.setPaperid(paper.getPaperid());
                     strategy.setType(type);
                     strategy.setValue(strategyDTO.getScore());
                     System.out.println("strategy"+strategy);
@@ -126,20 +126,20 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                     System.out.println("随机后的试题"+questionids);
                     questions.add(questionids);
                     System.out.println("questions"+questions);
-                    this.insertPaperQuestion(questions, paper.getPaperId());
+                    this.insertPaperQuestion(questions, paper.getPaperid());
                 } else if (strategyDTO.getMode() == 3) {//手动组卷
                     List<List<Integer>> questions = new ArrayList<>();
                     System.out.println("手动组卷");
                     Strategy strategy = new Strategy();
                     strategy.setMode(strategyDTO.getMode());
                     strategy.setCount(strategyDTO.getCount());
-                    strategy.setPaperid(paper.getPaperId());
+                    strategy.setPaperid(paper.getPaperid());
                     strategy.setType(strategyDTO.getType());
                     strategy.setValue(strategyDTO.getScore());
                     strategyDao.insertSelective(strategy);
                     int[] questionid = strategyDTO.getQuestionids();
                     for (int i = 0; i < questionid.length; i++) {
-                        paperDao.insertPaperQuestion(questionid[i], paper.getPaperId());
+                        paperDao.insertPaperQuestion(questionid[i], paper.getPaperid());
                     }
                 }
             }
