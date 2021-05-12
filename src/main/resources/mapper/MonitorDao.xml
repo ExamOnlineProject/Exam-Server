@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyg.exam.dao.MonitorDao">
+
+    <!-- 通用查询映射结果 -->
+<!--    <resultMap id="BaseResultMap" type="com.zyg.exam.model.BlackList">-->
+<!--        <id column="id" property="id" />-->
+<!--        <result column="name" property="name" />-->
+<!--        <result column="type" property="type" />-->
+<!--        <result column="process" property="process" />-->
+<!--    </resultMap>-->
+<!--    <resultMap id="count" type="java.lang.Long" />-->
+
+    <select id="getMonitorPaperIds" resultType="int">
+        select paperid from monitor where status = 1
+    </select>
+</mapper>
