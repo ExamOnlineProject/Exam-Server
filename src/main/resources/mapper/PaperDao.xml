@@ -8,6 +8,7 @@
     <result column="pattern" jdbcType="INTEGER" property="pattern" />
     <result column="ismonitor" jdbcType="VARCHAR" property="ismonitor" />
     <result column="courseid" jdbcType="INTEGER" property="courseid" />
+    <result column="papername" jdbcType="VARCHAR" property="papername" />
   </resultMap>
   <resultMap id="PaperDTO" type="com.zyg.exam.common.VO.PaperVO">
     <id column="paperid" jdbcType="INTEGER" property="paperId" />
@@ -18,6 +19,7 @@
     <result column="finishtime" jdbcType="TIMESTAMP" property="finishTime" />
     <result column="classid" jdbcType="INTEGER" property="classid"/>
     <result column="courseid" jdbcType="INTEGER" property="courseid"/>
+    <result column="papername" jdbcType="VARCHAR" property="papername" />
   </resultMap>
   <resultMap id="Question1" type="com.zyg.exam.model.Question">
     <id column="subjectid" jdbcType="INTEGER" property="subjectid" />
@@ -30,6 +32,7 @@
     <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="difficulty" jdbcType="VARCHAR" property="difficulty" />
     <result column="chapterid" jdbcType="INTEGER" property="chapterid" />
+    <result column="papername" jdbcType="VARCHAR" property="papername" />
   </resultMap>
   <sql id="Base_Column_List">
     paperid, starttime, finishtime, pattern, ismonitor, courseid
@@ -83,7 +86,7 @@
   </update>
   <select id="selectPaper" resultMap="PaperDTO,count">
     <bind name="key_offset" value="(pageIndex-1)*pageSize"></bind>
-    select SQL_CALC_FOUND_ROWS * from(select paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,course.coursename from
+    select SQL_CALC_FOUND_ROWS * from(select paperid,paper.starttime,paper.finishtime,paper.pattern,paper.isMonitor,course.coursename,paper.papername from
     paper left join course on paper.courseid=course.courseid
     <if test="courseid!=null and courseid!=''">
       where paper.courseid=#{courseid,jdbcType=INTEGER}

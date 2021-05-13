@@ -60,6 +60,7 @@ public class StrategyServiceImpl extends  AllRandom implements StrategyService {
                 starttime(addPaperDTO.getStarttime()).
                 pattern(addPaperDTO.getPattern()).
                 ismonitor(addPaperDTO.getIsmonitor()).
+                papername(addPaperDTO.getPapername()).
                 build();
             paperDao.insert(paper);
         List<StrategyDTO> strategyDTOS = addPaperDTO.getStrategyDTOS();

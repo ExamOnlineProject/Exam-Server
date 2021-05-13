@@ -16,4 +16,5 @@ public class AddPaperDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date finishtime;
     private List<StrategyDTO> strategyDTOS; // 存储条件策略
+    private String papername;
 }

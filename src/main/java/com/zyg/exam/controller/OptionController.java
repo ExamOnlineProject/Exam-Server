@@ -91,12 +91,13 @@ public class OptionController {
     }
 
     @RequestMapping("/questionOption")
-    public List<OptionVO> questionOption(Integer id){
+    public List<OptionVO> questionOption(Integer id,String type){
         List<OptionVO> list = new ArrayList<>();
         QueryWrapper<Question> queryWrapper = null;
         if (id != null){
             queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("chapterid",id);
+            queryWrapper.eq("type",type);
         }
         for (Question question: questionDao.selectList(queryWrapper.select("subjectid","content"))) {
             OptionVO optionVO = new OptionVO(question.getSubjectid(),question.getContent());

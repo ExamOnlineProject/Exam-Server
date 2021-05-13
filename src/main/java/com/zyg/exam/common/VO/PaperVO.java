@@ -41,4 +41,5 @@ public class PaperVO {
     private Integer courseid;
 
     private Integer classid;
+    private String papername;
 }

@@ -50,6 +50,7 @@ public class Paper implements Serializable {
      * 课程id
      */
     private Integer courseid;
+    private String papername;
 
     private static final long serialVersionUID = 1L;
 
